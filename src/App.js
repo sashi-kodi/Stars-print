@@ -1,26 +1,39 @@
-import React from 'react';
+import React,{Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import StarComponent from './StarComponent';
 
-function App() {
+class App extends Component{
+    constructor(props){
+        super(props);
+        this.state={n:13, results:[]};
+    }
+    componentDidMount(){
+        let results=[];
+        let count=1;
+        let increment=true;
+        for(let i=0;i<this.state.n;i++){
+           results.push(count);
+            if(increment && count<this.state.n ){
+                 count=count+2; 
+            }
+            else{
+                count= count-2;
+                increment=false;
+            }
+             
+        }
+       this.setState({results:results})
+    }
+  render(){
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     {this.state.results.map((el,index)=>(
+      <StarComponent n={el} key={index}/>
+     ))}
     </div>
   );
+  }
 }
 
 export default App;
